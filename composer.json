@@ -15,5 +15,7 @@
     "autoload": {
         "psr-4": {"PHPAPILibrary\\Core\\": "src/"}
     },
-    "require": {}
+    "require": {
+        "psr/http-message": "^1.0"
+    }
 }
