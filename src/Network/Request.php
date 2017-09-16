@@ -7,7 +7,8 @@ use Psr\Http\Message\StreamInterface;
  * Interface Request
  * @package PHPAPILibrary\Core\Network
  */
-interface Request {
+interface Request
+{
     /**
      * @return String
      */
