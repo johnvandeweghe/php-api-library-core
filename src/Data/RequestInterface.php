@@ -1,13 +1,13 @@
 <?php
 namespace PHPAPILibrary\Core\Data;
 
-use PHPAPILibrary\Core\Identity\Identity;
+use PHPAPILibrary\Core\Identity\IdentityInterface;
 
 /**
- * Interface Request
+ * Interface RequestInterface
  * @package PHPAPILibrary\Core\Data
  */
-interface Request
+interface RequestInterface
 {
     /**
      * @return String
@@ -20,13 +20,13 @@ interface Request
     public function getPath(): String;
 
     /**
-     * @return Identity
+     * @return IdentityInterface
      */
-    public function getIdentity(): Identity;
+    public function getIdentity(): IdentityInterface;
 
     /**
-     * @return Data
+     * @return DataInterface
      */
-    public function getData(): Data;
+    public function getData(): DataInterface;
 
 }

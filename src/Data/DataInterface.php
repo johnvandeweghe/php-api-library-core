@@ -2,10 +2,10 @@
 namespace PHPAPILibrary\Core\Data;
 
 /**
- * Interface Data
+ * Interface DataInterface
  * @package PHPAPILibrary\Core\Data
  */
-interface Data
+interface DataInterface
 {
     //Marker interface
 }

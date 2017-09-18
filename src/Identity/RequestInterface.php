@@ -2,10 +2,10 @@
 namespace PHPAPILibrary\Core\Identity;
 
 /**
- * Interface Request
+ * Interface RequestInterface
  * @package PHPAPILibrary\Core\Identity
  */
-interface Request
+interface RequestInterface
 {
     /**
      * @return String
@@ -18,9 +18,9 @@ interface Request
     public function getPath(): String;
 
     /**
-     * @return Identity
+     * @return IdentityInterface
      */
-    public function getIdentity(): Identity;
+    public function getIdentity(): IdentityInterface;
 
     /**
      * @return array|object|null

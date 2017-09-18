@@ -2,10 +2,10 @@
 namespace PHPAPILibrary\Core;
 
 /**
- * Interface CacheControl
+ * Interface CacheControlInterface
  * @package PHPAPILibrary\Core
  */
-interface CacheControl
+interface CacheControlInterface
 {
     /**
      * @return bool

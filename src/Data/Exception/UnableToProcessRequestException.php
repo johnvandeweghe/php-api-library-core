@@ -1,33 +1,37 @@
 <?php
 namespace PHPAPILibrary\Core\Data\Exception;
 
-use PHPAPILibrary\Core\Data\Response;
+use PHPAPILibrary\Core\Data\ResponseInterface;
 use Throwable;
 
+/**
+ * Class UnableToProcessRequestException
+ * @package PHPAPILibrary\Core\Data\Exception
+ */
 class UnableToProcessRequestException extends \Exception
 {
     /**
-     * @var Response
+     * @var ResponseInterface
      */
     private $response;
 
     /**
      * RequestException constructor.
-     * @param Response $response
+     * @param ResponseInterface $response
      * @param string $message
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct(Response $response, $message = "", $code = 0, Throwable $previous = null)
+    public function __construct(ResponseInterface $response, $message = "", $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
         $this->response = $response;
     }
 
     /**
-     * @return Response
+     * @return ResponseInterface
      */
-    public function getResponse(): Response
+    public function getResponse(): ResponseInterface
     {
         return $this->response;
     }

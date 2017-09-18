@@ -4,10 +4,10 @@ namespace PHPAPILibrary\Core\Network;
 use Psr\Http\Message\StreamInterface;
 
 /**
- * Interface Request
+ * Interface RequestInterface
  * @package PHPAPILibrary\Core\Network
  */
-interface Request
+interface RequestInterface
 {
     /**
      * @return String

@@ -1,19 +1,19 @@
 <?php
 namespace PHPAPILibrary\Core\Network;
 
-use PHPAPILibrary\Core\CacheControl;
+use PHPAPILibrary\Core\CacheControlInterface;
 use Psr\Http\Message\StreamInterface;
 
 /**
- * Interface Response
+ * Interface ResponseInterface
  * @package PHPAPILibrary\Core\Network
  */
-interface Response
+interface ResponseInterface
 {
     /**
-     * @return CacheControl
+     * @return CacheControlInterface
      */
-    public function getCacheControl(): CacheControl;
+    public function getCacheControl(): CacheControlInterface;
 
     /**
      * @return StreamInterface
