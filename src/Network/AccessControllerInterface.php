@@ -4,10 +4,10 @@ namespace PHPAPILibrary\Core\Network;
 use PHPAPILibrary\Core\Network\Exception\UnableToProcessRequestException;
 
 /**
- * Interface AccessControlInterface
+ * Interface AccessControllerInterface
  * @package PHPAPILibrary\Core\Network
  */
-interface AccessControlInterface
+interface AccessControllerInterface
 {
     /**
      * @param RequestInterface $request

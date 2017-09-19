@@ -4,10 +4,10 @@ namespace PHPAPILibrary\Core\Data;
 use PHPAPILibrary\Core\Data\Exception\UnableToProcessRequestException;
 
 /**
- * Interface AccessControlInterface
+ * Interface AccessControllerInterface
  * @package PHPAPILibrary\Core\Data
  */
-interface AccessControlInterface
+interface AccessControllerInterface
 {
     /**
      * @param RequestInterface $request

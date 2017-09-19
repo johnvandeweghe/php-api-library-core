@@ -4,10 +4,10 @@ namespace PHPAPILibrary\Core\Identity;
 use PHPAPILibrary\Core\Identity\Exception\UnableToProcessRequestException;
 
 /**
- * Interface AccessControlInterface
+ * Interface AccessControllerInterface
  * @package PHPAPILibrary\Core\Identity
  */
-interface AccessControlInterface
+interface AccessControllerInterface
 {
     /**
      * @param RequestInterface $request
