@@ -11,7 +11,8 @@ interface LoggerInterface
 {
     /**
      * @param RequestInterface $request
+     * @param ResponseInterface $response
      * @throws UnableToProcessRequestException
      */
-    public function logRequest(RequestInterface $request): void;
+    public function logResponse(RequestInterface $request, ResponseInterface $response): void;
 }
