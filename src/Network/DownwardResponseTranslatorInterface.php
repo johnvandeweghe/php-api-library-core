@@ -5,7 +5,7 @@ namespace PHPAPILibrary\Core\Network;
  * Interface ServerResponseTranslatorInterface
  * @package PHPAPILibrary\Core\Network
  */
-interface FromIdentityResponseTranslatorInterface
+interface DownwardResponseTranslatorInterface
 {
     /**
      * @param \PHPAPILibrary\Core\Identity\ResponseInterface $response

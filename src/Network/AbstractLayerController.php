@@ -59,6 +59,8 @@ abstract class AbstractLayerController implements LayerControllerInterface
     /**
      * @param RequestInterface $request
      * @return ResponseInterface
+     * @throws RequestException
+     * @throws UnableToProcessRequestException
      */
     abstract protected function getResponse(RequestInterface $request): ResponseInterface;
 

@@ -2,10 +2,10 @@
 namespace PHPAPILibrary\Core\Network;
 
 /**
- * Interface ToIdentityRequestTranslatorInterface
+ * Interface UpwardRequestTranslatorInterface
  * @package PHPAPILibrary\Core\Network
  */
-interface ToIdentityRequestTranslatorInterface
+interface UpwardRequestTranslatorInterface
 {
     /**
      * @param RequestInterface $request
