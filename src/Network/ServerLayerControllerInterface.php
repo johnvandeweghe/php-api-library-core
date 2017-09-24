@@ -5,7 +5,7 @@ namespace PHPAPILibrary\Core\Network;
  * Interface ServerLayerControllerInterface
  * @package PHPAPILibrary\Core\Network
  */
-interface ServerLayerControllerInterfaceInterface extends LayerControllerInterface
+interface ServerLayerControllerInterface extends LayerControllerInterface
 {
     /**
      * @return \PHPAPILibrary\Core\Identity\LayerControllerInterface
