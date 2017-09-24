@@ -1,25 +1,21 @@
 <?php
 namespace PHPAPILibrary\Core\Data;
 
-use PHPAPILibrary\Core\Data\Exception\UnableToProcessRequestException;
-
 /**
  * Interface CacheControllerInterface
- * @package PHPAPILibrary\Core\Data
+ * @package PHPAPILibrary\Core\Network
  */
 interface CacheControllerInterface
 {
     /**
      * @param RequestInterface $request
-     * @return ResponseInterface
-     * @throws UnableToProcessRequestException
+     * @return ResponseInterface|null
      */
-    public function getResponse(RequestInterface $request): ResponseInterface;
+    public function getResponse(RequestInterface $request);
 
     /**
      * @param RequestInterface $request
      * @param ResponseInterface $response
-     * @throws UnableToProcessRequestException
      */
     public function storeResponse(RequestInterface $request, ResponseInterface $response): void;
 }

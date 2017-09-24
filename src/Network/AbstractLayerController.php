@@ -24,6 +24,11 @@ abstract class AbstractLayerController implements LayerControllerInterface
     {
         $response = $this->getResponseFromSubLayers($request);
 
+        if(!$response) {
+            $response = $this->getResponse($request);
+            $this->getCacheController()->storeResponse($request, $response);
+        }
+
         $this->getRateController()->trackRequest($request);
         $this->getLogger()->logResponse($request, $response);
 
@@ -32,7 +37,7 @@ abstract class AbstractLayerController implements LayerControllerInterface
 
     /**
      * @param RequestInterface $request
-     * @return ResponseInterface
+     * @return ResponseInterface|null A response if one of the sub layer's returned one, null otherwise.
      * @throws RequestException
      * @throws AccessDeniedException
      * @throws RateLimitExceededException
@@ -48,14 +53,14 @@ abstract class AbstractLayerController implements LayerControllerInterface
             return $this->handleDeniedAccess($request);
         }
 
-        if($response = $this->getCacheController()->getResponse($request)) {
-            return $response;
-        }
-
-        $response = $this->handleRequest($request);
-        $this->getCacheController()->storeResponse($request, $response);
-        return $response;
+        return $this->getCacheController()->getResponse($request);
     }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    abstract protected function getResponse(RequestInterface $request): ResponseInterface;
 
     /**
      * @param RequestInterface $request
