@@ -1,11 +1,13 @@
 <?php
-namespace PHPAPILibrary\Core\Network;
+namespace PHPAPILibrary\Core\Data\Out;
+
+use PHPAPILibrary\Core\Data\ResponseInterface;
 
 /**
- * Interface ServerResponseTranslatorInterface
- * @package PHPAPILibrary\Core\Network
+ * Interface ResponseTranslatorInterface
+ * @package PHPAPILibrary\Core\Data\Out
  */
-interface DownwardResponseTranslatorInterface
+interface ResponseTranslatorInterface
 {
     /**
      * @param \PHPAPILibrary\Core\Identity\ResponseInterface $response

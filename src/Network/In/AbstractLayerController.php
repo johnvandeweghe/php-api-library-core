@@ -1,16 +1,18 @@
 <?php
-namespace PHPAPILibrary\Core\Network;
+namespace PHPAPILibrary\Core\Network\In;
 
 use PHPAPILibrary\Core\Network\Exception\AccessDeniedException;
 use PHPAPILibrary\Core\Network\Exception\RateLimitExceededException;
 use PHPAPILibrary\Core\Network\Exception\RequestException;
 use PHPAPILibrary\Core\Network\Exception\UnableToProcessRequestException;
+use PHPAPILibrary\Core\Network\RequestInterface;
+use PHPAPILibrary\Core\Network\ResponseInterface;
 
 /**
- * Class AbstractUpwardLayerController
- * @package PHPAPILibrary\Core\Network
+ * Class AbstractLayerController
+ * @package PHPAPILibrary\Core\Network\In
  */
-abstract class AbstractUpwardLayerController extends AbstractLayerController
+abstract class AbstractLayerController extends \PHPAPILibrary\Core\Network\AbstractLayerController
 {
     /**
      * @param RequestInterface $request
@@ -22,39 +24,39 @@ abstract class AbstractUpwardLayerController extends AbstractLayerController
      */
     protected function getResponse(RequestInterface $request): ResponseInterface
     {
-        $identityRequest = $this->getUpwardRequestTranslator()->translateRequest($request);
+        $identityRequest = $this->getRequestTranslator()->translateRequest($request);
 
         try {
-            $identityResponse = $this->getUpwardLayer()->handleRequest($identityRequest);
+            $identityResponse = $this->getNextLayer()->handleRequest($identityRequest);
         } catch(\PHPAPILibrary\Core\Identity\Exception\AccessDeniedException $exception) {
-            $networkResponse = $this->getDownwardResponseTranslator()->translateResponse($exception->getResponse());
+            $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new AccessDeniedException($networkResponse);
         } catch(\PHPAPILibrary\Core\Identity\Exception\RateLimitExceededException $exception) {
-            $networkResponse = $this->getDownwardResponseTranslator()->translateResponse($exception->getResponse());
+            $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new RateLimitExceededException($networkResponse);
         } catch(\PHPAPILibrary\Core\Identity\Exception\RequestException $exception) {
-            $networkResponse = $this->getDownwardResponseTranslator()->translateResponse($exception->getResponse());
+            $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new RequestException($networkResponse);
         } catch(\PHPAPILibrary\Core\Identity\Exception\UnableToProcessRequestException $exception) {
-            $networkResponse = $this->getDownwardResponseTranslator()->translateResponse($exception->getResponse());
+            $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new UnableToProcessRequestException($networkResponse);
         }
 
-        return $this->getDownwardResponseTranslator()->translateResponse($identityResponse);
+        return $this->getResponseTranslator()->translateResponse($identityResponse);
     }
 
     /**
      * @return \PHPAPILibrary\Core\Identity\LayerControllerInterface
      */
-    abstract public function getUpwardLayer(): \PHPAPILibrary\Core\Identity\LayerControllerInterface;
+    abstract public function getNextLayer(): \PHPAPILibrary\Core\Identity\LayerControllerInterface;
 
     /**
-     * @return UpwardRequestTranslatorInterface
+     * @return RequestTranslatorInterface
      */
-    abstract public function getUpwardRequestTranslator(): UpwardRequestTranslatorInterface;
+    abstract public function getRequestTranslator(): RequestTranslatorInterface;
 
     /**
-     * @return DownwardResponseTranslatorInterface
+     * @return ResponseTranslatorInterface
      */
-    abstract public function getDownwardResponseTranslator(): DownwardResponseTranslatorInterface;
+    abstract public function getResponseTranslator(): ResponseTranslatorInterface;
 }

@@ -1,11 +1,13 @@
 <?php
-namespace PHPAPILibrary\Core\Network;
+namespace PHPAPILibrary\Core\Data\Out;
+
+use PHPAPILibrary\Core\Data\RequestInterface;
 
 /**
- * Interface UpwardRequestTranslatorInterface
- * @package PHPAPILibrary\Core\Network
+ * Interface RequestTranslatorInterface
+ * @package PHPAPILibrary\Core\Data\Out
  */
-interface UpwardRequestTranslatorInterface
+interface RequestTranslatorInterface
 {
     /**
      * @param RequestInterface $request
