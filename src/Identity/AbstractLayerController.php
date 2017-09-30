@@ -1,6 +1,7 @@
 <?php
 namespace PHPAPILibrary\Core\Identity;
 
+use PHPAPILibrary\Core\CacheControl\NoCacheControl;
 use PHPAPILibrary\Core\Identity\Exception\AccessDeniedException;
 use PHPAPILibrary\Core\Identity\Exception\RateLimitExceededException;
 use PHPAPILibrary\Core\Identity\Exception\RequestException;
@@ -13,42 +14,6 @@ use PHPAPILibrary\Core\Identity\Exception\UnableToProcessRequestException;
 abstract class AbstractLayerController implements LayerControllerInterface
 {
     /**
-     * @var AccessControllerInterface
-     */
-    private $accessController;
-    /**
-     * @var CacheControllerInterface
-     */
-    private $cacheController;
-    /**
-     * @var RateControllerInterface
-     */
-    private $rateController;
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    /**
-     * AbstractLayerController constructor.
-     * @param AccessControllerInterface $accessController
-     * @param CacheControllerInterface $cacheController
-     * @param RateControllerInterface $rateController
-     * @param LoggerInterface $logger
-     */
-    public function __construct(
-        AccessControllerInterface $accessController,
-        CacheControllerInterface $cacheController,
-        RateControllerInterface $rateController,
-        LoggerInterface $logger
-    ) {
-        $this->accessController = $accessController;
-        $this->cacheController = $cacheController;
-        $this->rateController = $rateController;
-        $this->logger = $logger;
-    }
-
-    /**
      * @param RequestInterface $request
      * @return ResponseInterface
      * @throws RequestException
@@ -58,15 +23,23 @@ abstract class AbstractLayerController implements LayerControllerInterface
      */
     public function handleRequest(RequestInterface $request): ResponseInterface
     {
-        $response = $this->getResponseFromSubLayers($request);
+        try {
+            $response = $this->getResponseFromSubLayers($request);
 
-        if(!$response) {
-            $response = $this->getResponse($request);
-            $this->getCacheController()->storeResponse($request, $response);
+            if (!$response) {
+                $response = $this->getResponse($request);
+                $this->getCacheController()->storeResponse($request, $response);
+            }
+
+            $this->getRateController()->trackRequest($request);
+
+            $this->getLogger()->logResponse($request, $response);
+        } catch (UnableToProcessRequestException $exception) {
+            $this->getLogger()->logResponseException($request, $exception);
+
+            //We caught it to log it, we can now rethrow it so it's handled properly.
+            throw $exception;
         }
-
-        $this->getRateController()->trackRequest($request);
-        $this->getLogger()->logResponse($request, $response);
 
         return $response;
     }
@@ -93,51 +66,16 @@ abstract class AbstractLayerController implements LayerControllerInterface
     }
 
     /**
-     * @return AccessControllerInterface
-     */
-    public function getAccessController(): AccessControllerInterface
-    {
-        return $this->accessController;
-    }
-
-    /**
-     * @return CacheControllerInterface
-     */
-    public function getCacheController(): CacheControllerInterface
-    {
-        return $this->cacheController;
-    }
-
-    /**
-     * @return RateControllerInterface
-     */
-    public function getRateController(): RateControllerInterface
-    {
-        return $this->rateController;
-    }
-
-    /**
-     * @return LoggerInterface
-     */
-    public function getLogger(): LoggerInterface
-    {
-        return $this->logger;
-    }
-
-    /**
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
-    abstract protected function getResponse(RequestInterface $request): ResponseInterface;
-
-    /**
      * @param RequestInterface $request
      * @return ResponseInterface
      * @throws RequestException
      * @throws RateLimitExceededException
      * @throws UnableToProcessRequestException
      */
-    abstract protected function handleRateLimitExceeded(RequestInterface $request): ResponseInterface;
+    protected function handleRateLimitExceeded(RequestInterface $request): ResponseInterface
+    {
+        throw new RateLimitExceededException(new Response\Response(new NoCacheControl(), null));
+    }
 
     /**
      * @param RequestInterface $request
@@ -146,7 +84,36 @@ abstract class AbstractLayerController implements LayerControllerInterface
      * @throws AccessDeniedException
      * @throws UnableToProcessRequestException
      */
-    abstract protected function handleDeniedAccess(RequestInterface $request): ResponseInterface;
+    protected function handleDeniedAccess(RequestInterface $request): ResponseInterface
+    {
+        throw new AccessDeniedException(new Response\Response(new NoCacheControl(), null));
+    }
 
+    /**
+     * @return AccessControllerInterface
+     */
+    abstract public function getAccessController(): AccessControllerInterface;
 
+    /**
+     * @return CacheControllerInterface
+     */
+    abstract public function getCacheController(): CacheControllerInterface;
+
+    /**
+     * @return RateControllerInterface
+     */
+    abstract public function getRateController(): RateControllerInterface;
+
+    /**
+     * @return LoggerInterface
+     */
+    abstract public function getLogger(): LoggerInterface;
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     * @throws RequestException
+     * @throws UnableToProcessRequestException
+     */
+    abstract protected function getResponse(RequestInterface $request): ResponseInterface;
 }

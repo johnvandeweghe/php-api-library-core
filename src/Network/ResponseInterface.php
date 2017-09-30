@@ -16,8 +16,8 @@ interface ResponseInterface
     public function getCacheControl(): CacheControlInterface;
 
     /**
-     * @return StreamInterface
+     * @return StreamInterface|null
      */
-    public function getData(): StreamInterface;
+    public function getData(): ?StreamInterface;
 
 }

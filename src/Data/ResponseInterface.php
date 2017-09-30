@@ -15,7 +15,7 @@ interface ResponseInterface
     public function getCacheControl(): CacheControlInterface;
 
     /**
-     * @return DataInterface
+     * @return DataInterface|null
      */
-    public function getData(): DataInterface;
+    public function getData(): ?DataInterface;
 }

@@ -12,7 +12,6 @@ use PHPAPILibrary\Core\Network\ResponseInterface;
  */
 class NullCacheController implements CacheControllerInterface
 {
-
     /**
      * @param RequestInterface $request
      * @return ResponseInterface|null
