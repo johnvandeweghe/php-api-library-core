@@ -1,0 +1,16 @@
+language: php
+php:
+  - 7.1
+
+before_install:
+  - composer self-update
+
+install:
+  - travis_retry composer install --prefer-dist --no-interaction
+
+script:
+  - phpunit --bootstrap "vendor/autoload.php" --coverage-clover=coverage.clover --whitelist src tests
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+- php ocular.phar code-coverage:upload --format=php-clover coverage.clover

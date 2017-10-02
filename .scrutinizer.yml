@@ -1,0 +1,19 @@
+tools:
+    external_code_coverage: true
+filter:
+    excluded_paths:
+        - 'tests/*'
+checks:
+    php:
+        use_self_instead_of_fqcn: true
+        uppercase_constants: true
+        phpunit_assertions: true
+        no_goto: true
+
+coding_style:
+    php:
+        upper_lower_casing:
+            keywords:
+                general: lower
+            constants:
+true_false_null: lower
