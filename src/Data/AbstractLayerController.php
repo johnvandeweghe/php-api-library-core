@@ -52,7 +52,7 @@ abstract class AbstractLayerController implements LayerControllerInterface
      * @throws RateLimitExceededException
      * @throws UnableToProcessRequestException
      */
-    protected function getResponseFromSubLayers(RequestInterface $request): ResponseInterface
+    protected function getResponseFromSubLayers(RequestInterface $request): ?ResponseInterface
     {
         if($this->getRateController()->isExceedingLimit($request)) {
             return $this->handleRateLimitExceeded($request);
