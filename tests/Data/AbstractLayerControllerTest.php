@@ -1,20 +1,23 @@
 <?php
 namespace PHPAPILibrary\Core\Data;
 
+use PHPAPILibrary\Core\CacheControl\NoCacheControl;
+use PHPAPILibrary\Core\Data\Exception\AccessDeniedException;
+use PHPAPILibrary\Core\Data\Exception\RateLimitExceededException;
 use PHPAPILibrary\Core\Data\Exception\UnableToProcessRequestException;
 use PHPUnit\Framework\TestCase;
 
 class AbstractLayerControllerTest extends TestCase
 {
     public function testLogsAndThrowsRateLimitExceededExceptionOnRateLimitExceeded() {
-        $mockedRateController = $this->getMockBuilder('\PHPAPILibrary\Core\Data\RateControllerInterface')->getMock();
+        $mockedRateController = $this->getMockBuilder(RateControllerInterface::class)->getMock();
         $mockedRateController->method('isExceedingLimit')->willReturn(true);
 
-        $mockedLogger = $this->getMockBuilder('\PHPAPILibrary\Core\Data\LoggerInterface')->getMock();
+        $mockedLogger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 
-        $mockedRequest = $this->getMockBuilder('\PHPAPILibrary\Core\Data\RequestInterface')->getMock();
+        $mockedRequest = $this->getMockBuilder(RequestInterface::class)->getMock();
 
-        $layerController = $this->getMockForAbstractClass('\PHPAPILibrary\Core\Data\AbstractLayerController');
+        $layerController = $this->getMockForAbstractClass(AbstractLayerController::class);
         $layerController->method('getRateController')->willReturn($mockedRateController);
         $layerController->method('getLogger')->willReturn($mockedLogger);
 
@@ -22,11 +25,11 @@ class AbstractLayerControllerTest extends TestCase
             function(RequestInterface $request, UnableToProcessRequestException $exception) use ($mockedRequest){
                 $this->assertEquals($mockedRequest, $request);
 
-                $this->assertInstanceOf('\PHPAPILibrary\Core\CacheControl\NoCacheControl', $exception->getResponse()->getCacheControl());
+                $this->assertInstanceOf(NoCacheControl::class, $exception->getResponse()->getCacheControl());
                 $this->assertNull($exception->getResponse()->getData());
             }
         );
-        $this->expectException('PHPAPILibrary\Core\Data\Exception\RateLimitExceededException');
+        $this->expectException(RateLimitExceededException::class);
 
         /**
          * @var AbstractLayerController $layerController
@@ -35,17 +38,17 @@ class AbstractLayerControllerTest extends TestCase
     }
 
     public function testLogsAndThrowsAccessDeniedExceptionOnAccessDenied() {
-        $mockedRateController = $this->getMockBuilder('\PHPAPILibrary\Core\Data\RateControllerInterface')->getMock();
+        $mockedRateController = $this->getMockBuilder(RateControllerInterface::class)->getMock();
         $mockedRateController->method('isExceedingLimit')->willReturn(false);
 
-        $mockedAccessController = $this->getMockBuilder('\PHPAPILibrary\Core\Data\AccessControllerInterface')->getMock();
+        $mockedAccessController = $this->getMockBuilder(AccessControllerInterface::class)->getMock();
         $mockedAccessController->method('canAccess')->willReturn(false);
 
-        $mockedLogger = $this->getMockBuilder('\PHPAPILibrary\Core\Data\LoggerInterface')->getMock();
+        $mockedLogger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 
-        $mockedRequest = $this->getMockBuilder('\PHPAPILibrary\Core\Data\RequestInterface')->getMock();
+        $mockedRequest = $this->getMockBuilder(RequestInterface::class)->getMock();
 
-        $layerController = $this->getMockForAbstractClass('\PHPAPILibrary\Core\Data\AbstractLayerController');
+        $layerController = $this->getMockForAbstractClass(AbstractLayerController::class);
         $layerController->method('getRateController')->willReturn($mockedRateController);
         $layerController->method('getAccessController')->willReturn($mockedAccessController);
         $layerController->method('getLogger')->willReturn($mockedLogger);
@@ -54,11 +57,11 @@ class AbstractLayerControllerTest extends TestCase
             function(RequestInterface $request, UnableToProcessRequestException $exception) use ($mockedRequest){
                 $this->assertEquals($mockedRequest, $request);
 
-                $this->assertInstanceOf('\PHPAPILibrary\Core\CacheControl\NoCacheControl', $exception->getResponse()->getCacheControl());
+                $this->assertInstanceOf(NoCacheControl::class, $exception->getResponse()->getCacheControl());
                 $this->assertNull($exception->getResponse()->getData());
             }
         );
-        $this->expectException('PHPAPILibrary\Core\Data\Exception\AccessDeniedException');
+        $this->expectException(AccessDeniedException::class);
 
         /**
          * @var AbstractLayerController $layerController
@@ -67,22 +70,22 @@ class AbstractLayerControllerTest extends TestCase
     }
 
     public function testDoesNotCallGetResponseWhenCachedButStillTracksAndLogsAndReturnsResponse() {
-        $mockedRateController = $this->getMockBuilder('\PHPAPILibrary\Core\Data\RateControllerInterface')->getMock();
+        $mockedRateController = $this->getMockBuilder(RateControllerInterface::class)->getMock();
         $mockedRateController->method('isExceedingLimit')->willReturn(false);
 
-        $mockedAccessController = $this->getMockBuilder('\PHPAPILibrary\Core\Data\AccessControllerInterface')->getMock();
+        $mockedAccessController = $this->getMockBuilder(AccessControllerInterface::class)->getMock();
         $mockedAccessController->method('canAccess')->willReturn(true);
 
-        $mockedResponse = $this->getMockBuilder('\PHPAPILibrary\Core\Data\ResponseInterface')->getMock();
+        $mockedResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
 
-        $mockedCacheController = $this->getMockBuilder('\PHPAPILibrary\Core\Data\CacheControllerInterface')->getMock();
+        $mockedCacheController = $this->getMockBuilder(CacheControllerInterface::class)->getMock();
         $mockedCacheController->method('getResponse')->willReturn($mockedResponse);
 
-        $mockedLogger = $this->getMockBuilder('\PHPAPILibrary\Core\Data\LoggerInterface')->getMock();
+        $mockedLogger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 
-        $mockedRequest = $this->getMockBuilder('\PHPAPILibrary\Core\Data\RequestInterface')->getMock();
+        $mockedRequest = $this->getMockBuilder(RequestInterface::class)->getMock();
 
-        $layerController = $this->getMockForAbstractClass('\PHPAPILibrary\Core\Data\AbstractLayerController');
+        $layerController = $this->getMockForAbstractClass(AbstractLayerController::class);
         $layerController->method('getRateController')->willReturn($mockedRateController);
         $layerController->method('getAccessController')->willReturn($mockedAccessController);
         $layerController->method('getCacheController')->willReturn($mockedCacheController);
@@ -100,22 +103,22 @@ class AbstractLayerControllerTest extends TestCase
     }
 
     public function testCallsGetResponseWhenNotCachedAndCachesAndTracksAndLogsAndReturnsResponse() {
-        $mockedRateController = $this->getMockBuilder('\PHPAPILibrary\Core\Data\RateControllerInterface')->getMock();
+        $mockedRateController = $this->getMockBuilder(RateControllerInterface::class)->getMock();
         $mockedRateController->method('isExceedingLimit')->willReturn(false);
 
-        $mockedAccessController = $this->getMockBuilder('\PHPAPILibrary\Core\Data\AccessControllerInterface')->getMock();
+        $mockedAccessController = $this->getMockBuilder(AccessControllerInterface::class)->getMock();
         $mockedAccessController->method('canAccess')->willReturn(true);
 
-        $mockedCacheController = $this->getMockBuilder('\PHPAPILibrary\Core\Data\CacheControllerInterface')->getMock();
+        $mockedCacheController = $this->getMockBuilder(CacheControllerInterface::class)->getMock();
         $mockedCacheController->method('getResponse')->willReturn(null);
 
-        $mockedLogger = $this->getMockBuilder('\PHPAPILibrary\Core\Data\LoggerInterface')->getMock();
+        $mockedLogger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 
-        $mockedRequest = $this->getMockBuilder('\PHPAPILibrary\Core\Data\RequestInterface')->getMock();
+        $mockedRequest = $this->getMockBuilder(RequestInterface::class)->getMock();
 
-        $mockedResponse = $this->getMockBuilder('\PHPAPILibrary\Core\Data\ResponseInterface')->getMock();
+        $mockedResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
 
-        $layerController = $this->getMockForAbstractClass('\PHPAPILibrary\Core\Data\AbstractLayerController');
+        $layerController = $this->getMockForAbstractClass(AbstractLayerController::class);
         $layerController->method('getRateController')->willReturn($mockedRateController);
         $layerController->method('getAccessController')->willReturn($mockedAccessController);
         $layerController->method('getCacheController')->willReturn($mockedCacheController);

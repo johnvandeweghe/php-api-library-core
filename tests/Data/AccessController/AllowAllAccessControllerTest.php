@@ -1,12 +1,13 @@
 <?php
 namespace PHPAPILibrary\Core\Data\AccessController;
 
+use PHPAPILibrary\Core\Data\RequestInterface;
 use PHPUnit\Framework\TestCase;
 
 class AllowAllAccessControllerTest extends TestCase
 {
     public function testAllowAccessReturnsTrue() {
-        $mockedRequest = $this->getMockBuilder('\PHPAPILibrary\Core\Data\RequestInterface')->getMock();
+        $mockedRequest = $this->getMockBuilder(RequestInterface::class)->getMock();
         $accessController = new AllowAllAccessController();
 
         $canAccess = $accessController->canAccess($mockedRequest);

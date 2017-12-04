@@ -27,22 +27,22 @@ abstract class AbstractLayerController extends \PHPAPILibrary\Core\Data\Abstract
         $identityRequest = $this->getRequestTranslator()->translateRequest($request);
 
         try {
-            $identityRequest = $this->getNextLayer()->handleRequest($identityRequest);
+            $identityResponse = $this->getNextLayer()->handleRequest($identityRequest);
         } catch(\PHPAPILibrary\Core\Identity\Exception\AccessDeniedException $exception) {
-            $identityRequest = $this->getResponseTranslator()->translateResponse($exception->getResponse());
-            throw new AccessDeniedException($identityRequest);
+            $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
+            throw new AccessDeniedException($identityResponse);
         } catch(\PHPAPILibrary\Core\Identity\Exception\RateLimitExceededException $exception) {
-            $identityRequest = $this->getResponseTranslator()->translateResponse($exception->getResponse());
-            throw new RateLimitExceededException($identityRequest);
+            $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
+            throw new RateLimitExceededException($identityResponse);
         } catch(\PHPAPILibrary\Core\Identity\Exception\RequestException $exception) {
-            $identityRequest = $this->getResponseTranslator()->translateResponse($exception->getResponse());
-            throw new RequestException($identityRequest);
+            $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
+            throw new RequestException($identityResponse);
         } catch(\PHPAPILibrary\Core\Identity\Exception\UnableToProcessRequestException $exception) {
-            $identityRequest = $this->getResponseTranslator()->translateResponse($exception->getResponse());
-            throw new UnableToProcessRequestException($identityRequest);
+            $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
+            throw new UnableToProcessRequestException($identityResponse);
         }
 
-        return $this->getResponseTranslator()->translateResponse($identityRequest);
+        return $this->getResponseTranslator()->translateResponse($identityResponse);
     }
 
     /**

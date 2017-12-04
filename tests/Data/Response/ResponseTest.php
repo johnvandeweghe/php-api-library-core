@@ -1,13 +1,15 @@
 <?php
 namespace PHPAPILibrary\Core\Data\Response;
 
+use PHPAPILibrary\Core\CacheControlInterface;
+use PHPAPILibrary\Core\Data\DataInterface;
 use PHPUnit\Framework\TestCase;
 
 class ResponseTest extends TestCase
 {
     public function testGettersReturnConstructedValues() {
-        $mockedCacheControl = $this->getMockBuilder('\PHPAPILibrary\Core\CacheControlInterface')->getMock();
-        $mockedData = $this->getMockBuilder('\PHPAPILibrary\Core\Data\DataInterface')->getMock();
+        $mockedCacheControl = $this->getMockBuilder(CacheControlInterface::class)->getMock();
+        $mockedData = $this->getMockBuilder(DataInterface::class)->getMock();
 
         $response = new Response($mockedCacheControl, $mockedData);
 
