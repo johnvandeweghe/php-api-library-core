@@ -1,6 +1,7 @@
 <?php
 namespace PHPAPILibrary\Core\Data\Out;
 
+use PHPAPILibrary\Core\Data\Out\Exception\UnableToTranslateRequestException;
 use PHPAPILibrary\Core\Data\RequestInterface;
 
 /**
@@ -12,6 +13,7 @@ interface RequestTranslatorInterface
     /**
      * @param RequestInterface $request
      * @return \PHPAPILibrary\Core\Identity\RequestInterface
+     * @throws UnableToTranslateRequestException
      */
     public function translateRequest(RequestInterface $request): \PHPAPILibrary\Core\Identity\RequestInterface;
 }

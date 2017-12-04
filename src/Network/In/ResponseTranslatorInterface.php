@@ -1,6 +1,7 @@
 <?php
 namespace PHPAPILibrary\Core\Network\In;
 
+use PHPAPILibrary\Core\Network\In\Exception\UnableToTranslateResponseException;
 use PHPAPILibrary\Core\Network\ResponseInterface;
 
 /**
@@ -12,6 +13,7 @@ interface ResponseTranslatorInterface
     /**
      * @param \PHPAPILibrary\Core\Identity\ResponseInterface $response
      * @return ResponseInterface
+     * @throws UnableToTranslateResponseException
      */
     public function translateResponse(\PHPAPILibrary\Core\Identity\ResponseInterface $response): ResponseInterface;
 }

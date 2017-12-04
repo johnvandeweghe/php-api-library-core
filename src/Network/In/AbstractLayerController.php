@@ -5,6 +5,7 @@ use PHPAPILibrary\Core\Network\Exception\AccessDeniedException;
 use PHPAPILibrary\Core\Network\Exception\RateLimitExceededException;
 use PHPAPILibrary\Core\Network\Exception\RequestException;
 use PHPAPILibrary\Core\Network\Exception\UnableToProcessRequestException;
+use PHPAPILibrary\Core\Network\In\Exception\UnableToTranslateResponseException;
 use PHPAPILibrary\Core\Network\RequestInterface;
 use PHPAPILibrary\Core\Network\ResponseInterface;
 
@@ -24,20 +25,20 @@ abstract class AbstractLayerController extends \PHPAPILibrary\Core\Network\Abstr
      */
     protected function getResponse(RequestInterface $request): ResponseInterface
     {
-        $identityRequest = $this->getRequestTranslator()->translateRequest($request);
-
         try {
+            $identityRequest = $this->getRequestTranslator()->translateRequest($request);
+
             $identityResponse = $this->getNextLayer()->handleRequest($identityRequest);
-        } catch(\PHPAPILibrary\Core\Identity\Exception\AccessDeniedException $exception) {
+        } catch (\PHPAPILibrary\Core\Identity\Exception\AccessDeniedException $exception) {
             $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new AccessDeniedException($networkResponse);
-        } catch(\PHPAPILibrary\Core\Identity\Exception\RateLimitExceededException $exception) {
+        } catch (\PHPAPILibrary\Core\Identity\Exception\RateLimitExceededException $exception) {
             $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new RateLimitExceededException($networkResponse);
-        } catch(\PHPAPILibrary\Core\Identity\Exception\RequestException $exception) {
+        } catch (\PHPAPILibrary\Core\Identity\Exception\RequestException $exception) {
             $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new RequestException($networkResponse);
-        } catch(\PHPAPILibrary\Core\Identity\Exception\UnableToProcessRequestException $exception) {
+        } catch (\PHPAPILibrary\Core\Identity\Exception\UnableToProcessRequestException $exception) {
             $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new UnableToProcessRequestException($networkResponse);
         }

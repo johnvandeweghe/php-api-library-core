@@ -24,9 +24,9 @@ abstract class AbstractLayerController extends \PHPAPILibrary\Core\Identity\Abst
      */
     protected function getResponse(RequestInterface $request): ResponseInterface
     {
-        $dataRequest = $this->getRequestTranslator()->translateRequest($request);
-
         try {
+            $dataRequest = $this->getRequestTranslator()->translateRequest($request);
+
             $dataResponse = $this->getNextLayer()->handleRequest($dataRequest);
         } catch(\PHPAPILibrary\Core\Data\Exception\AccessDeniedException $exception) {
             $dataResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
