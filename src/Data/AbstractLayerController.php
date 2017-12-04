@@ -1,11 +1,11 @@
 <?php
 namespace PHPAPILibrary\Core\Data;
 
-use PHPAPILibrary\Core\CacheControl\NoCacheControl;
 use PHPAPILibrary\Core\Data\Exception\AccessDeniedException;
 use PHPAPILibrary\Core\Data\Exception\RateLimitExceededException;
 use PHPAPILibrary\Core\Data\Exception\RequestException;
 use PHPAPILibrary\Core\Data\Exception\UnableToProcessRequestException;
+use PHPAPILibrary\Core\Data\Response\Response;
 
 /**
  * Class AbstractLayerController
@@ -74,7 +74,7 @@ abstract class AbstractLayerController implements LayerControllerInterface
      */
     protected function handleRateLimitExceeded(RequestInterface $request): ResponseInterface
     {
-        throw new RateLimitExceededException(new Response\Response(new NoCacheControl(), null));
+        throw new RateLimitExceededException(Response::getNullResponse());
     }
 
     /**
@@ -86,7 +86,7 @@ abstract class AbstractLayerController implements LayerControllerInterface
      */
     protected function handleDeniedAccess(RequestInterface $request): ResponseInterface
     {
-        throw new AccessDeniedException(new Response\Response(new NoCacheControl(), null));
+        throw new AccessDeniedException(Response::getNullResponse());
     }
 
     /**

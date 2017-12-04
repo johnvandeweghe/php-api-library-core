@@ -1,6 +1,7 @@
 <?php
 namespace PHPAPILibrary\Core\Network\Response;
 
+use PHPAPILibrary\Core\CacheControl\NoCacheControl;
 use PHPAPILibrary\Core\CacheControlInterface;
 use PHPAPILibrary\Core\Network\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -29,6 +30,14 @@ class Response implements ResponseInterface
     {
         $this->cacheControl = $cacheControl;
         $this->stream = $stream;
+    }
+
+    /**
+     * Get an empty response.
+     * @return Response
+     */
+    public static function getNullResponse(): Response {
+        return new Response(new NoCacheControl(), null);
     }
 
     /**

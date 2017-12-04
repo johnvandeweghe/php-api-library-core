@@ -2,6 +2,7 @@
 namespace PHPAPILibrary\Core\Identity\In\Exception;
 
 use PHPAPILibrary\Core\Identity\Exception\UnableToProcessRequestException;
+use PHPAPILibrary\Core\Identity\Response\Response;
 
 /**
  * Class UnableToTranslateResponseException
@@ -17,6 +18,6 @@ class UnableToTranslateResponseException extends UnableToProcessRequestException
      */
     public function __construct($message = "", $code = 0, $previous = null)
     {
-        parent::__construct(null, $message, $code, $previous);
+        parent::__construct(Response::getNullResponse(), $message, $code, $previous);
     }
 }

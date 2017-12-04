@@ -1,11 +1,11 @@
 <?php
 namespace PHPAPILibrary\Core\Identity;
 
-use PHPAPILibrary\Core\CacheControl\NoCacheControl;
 use PHPAPILibrary\Core\Identity\Exception\AccessDeniedException;
 use PHPAPILibrary\Core\Identity\Exception\RateLimitExceededException;
 use PHPAPILibrary\Core\Identity\Exception\RequestException;
 use PHPAPILibrary\Core\Identity\Exception\UnableToProcessRequestException;
+use PHPAPILibrary\Core\Identity\Response\Response;
 
 /**
  * Class AbstractLayerController
@@ -52,7 +52,7 @@ abstract class AbstractLayerController implements LayerControllerInterface
      * @throws RateLimitExceededException
      * @throws UnableToProcessRequestException
      */
-    protected function getResponseFromSubLayers(RequestInterface $request): ResponseInterface
+    protected function getResponseFromSubLayers(RequestInterface $request): ?ResponseInterface
     {
         if($this->getRateController()->isExceedingLimit($request)) {
             return $this->handleRateLimitExceeded($request);
@@ -74,7 +74,7 @@ abstract class AbstractLayerController implements LayerControllerInterface
      */
     protected function handleRateLimitExceeded(RequestInterface $request): ResponseInterface
     {
-        throw new RateLimitExceededException(new Response\Response(new NoCacheControl(), null));
+        throw new RateLimitExceededException(Response::getNullResponse());
     }
 
     /**
@@ -86,7 +86,7 @@ abstract class AbstractLayerController implements LayerControllerInterface
      */
     protected function handleDeniedAccess(RequestInterface $request): ResponseInterface
     {
-        throw new AccessDeniedException(new Response\Response(new NoCacheControl(), null));
+        throw new AccessDeniedException(Response::getNullResponse());
     }
 
     /**
