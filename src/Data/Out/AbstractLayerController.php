@@ -48,15 +48,15 @@ abstract class AbstractLayerController extends \PHPAPILibrary\Core\Data\Abstract
     /**
      * @return \PHPAPILibrary\Core\Identity\LayerControllerInterface
      */
-    abstract public function getNextLayer(): \PHPAPILibrary\Core\Identity\LayerControllerInterface;
+    abstract protected function getNextLayer(): \PHPAPILibrary\Core\Identity\LayerControllerInterface;
 
     /**
      * @return RequestTranslatorInterface
      */
-    abstract public function getRequestTranslator(): RequestTranslatorInterface;
+    abstract protected function getRequestTranslator(): RequestTranslatorInterface;
 
     /**
      * @return ResponseTranslatorInterface
      */
-    abstract public function getResponseTranslator(): ResponseTranslatorInterface;
+    abstract protected function getResponseTranslator(): ResponseTranslatorInterface;
 }

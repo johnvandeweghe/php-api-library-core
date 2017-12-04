@@ -74,7 +74,7 @@ class LayerController extends AbstractLayerController
     /**
      * @return AccessControllerInterface
      */
-    public function getAccessController(): AccessControllerInterface
+    protected function getAccessController(): AccessControllerInterface
     {
         return $this->accessController;
     }
@@ -82,7 +82,7 @@ class LayerController extends AbstractLayerController
     /**
      * @return RateControllerInterface
      */
-    public function getRateController(): RateControllerInterface
+    protected function getRateController(): RateControllerInterface
     {
         return $this->rateController;
     }
@@ -90,7 +90,7 @@ class LayerController extends AbstractLayerController
     /**
      * @return CacheControllerInterface
      */
-    public function getCacheController(): CacheControllerInterface
+    protected function getCacheController(): CacheControllerInterface
     {
         return $this->cacheController;
     }
@@ -98,7 +98,7 @@ class LayerController extends AbstractLayerController
     /**
      * @return LoggerInterface
      */
-    public function getLogger(): LoggerInterface
+    protected function getLogger(): LoggerInterface
     {
         return $this->logger;
     }
@@ -106,7 +106,7 @@ class LayerController extends AbstractLayerController
     /**
      * @return \PHPAPILibrary\Core\Network\LayerControllerInterface
      */
-    public function getNextLayer(): \PHPAPILibrary\Core\Network\LayerControllerInterface
+    protected function getNextLayer(): \PHPAPILibrary\Core\Network\LayerControllerInterface
     {
         return $this->networkLayerController;
     }
@@ -114,7 +114,7 @@ class LayerController extends AbstractLayerController
     /**
      * @return RequestTranslatorInterface
      */
-    public function getRequestTranslator(): RequestTranslatorInterface
+    protected function getRequestTranslator(): RequestTranslatorInterface
     {
         return $this->requestTranslator;
     }
@@ -122,7 +122,7 @@ class LayerController extends AbstractLayerController
     /**
      * @return ResponseTranslatorInterface
      */
-    public function getResponseTranslator(): ResponseTranslatorInterface
+    protected function getResponseTranslator(): ResponseTranslatorInterface
     {
         return $this->responseTranslator;
     }

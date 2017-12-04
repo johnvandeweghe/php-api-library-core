@@ -21,24 +21,4 @@ interface LayerControllerInterface
      * @throws UnableToProcessRequestException
      */
     public function handleRequest(RequestInterface $request): ResponseInterface;
-
-    /**
-     * @return AccessControllerInterface
-     */
-    public function getAccessController(): AccessControllerInterface;
-
-    /**
-     * @return CacheControllerInterface
-     */
-    public function getCacheController(): CacheControllerInterface;
-
-    /**
-     * @return RateControllerInterface
-     */
-    public function getRateController(): RateControllerInterface;
-
-    /**
-     * @return LoggerInterface
-     */
-    public function getLogger(): LoggerInterface;
 }

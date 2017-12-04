@@ -92,22 +92,22 @@ abstract class AbstractLayerController implements LayerControllerInterface
     /**
      * @return AccessControllerInterface
      */
-    abstract public function getAccessController(): AccessControllerInterface;
+    abstract protected function getAccessController(): AccessControllerInterface;
 
     /**
      * @return CacheControllerInterface
      */
-    abstract public function getCacheController(): CacheControllerInterface;
+    abstract protected function getCacheController(): CacheControllerInterface;
 
     /**
      * @return RateControllerInterface
      */
-    abstract public function getRateController(): RateControllerInterface;
+    abstract protected function getRateController(): RateControllerInterface;
 
     /**
      * @return LoggerInterface
      */
-    abstract public function getLogger(): LoggerInterface;
+    abstract protected function getLogger(): LoggerInterface;
 
     /**
      * @param RequestInterface $request
