@@ -1,7 +1,6 @@
 <?php
 namespace PHPAPILibrary\Core\Network\In\RequestTranslator;
 
-use PHPAPILibrary\Core\Identity\IdentityInterface;
 use PHPAPILibrary\Core\Network\In\Exception\UnableToTranslateRequestException;
 use PHPAPILibrary\Core\Network\RequestInterface;
 
@@ -9,13 +8,12 @@ use PHPAPILibrary\Core\Network\RequestInterface;
  * Interface IdentityProviderInterface
  * @package PHPAPILibrary\Core\Network\In\RequestTranslator
  */
-interface IdentityProviderInterface
+interface DataTranslatorInterface
 {
     /**
      * @param RequestInterface $request
-     * @param object|array|null $parsedData
-     * @return IdentityInterface
+     * @return object|array|null
      * @throws UnableToTranslateRequestException
      */
-    public function buildIdentity(RequestInterface $request, $parsedData): IdentityInterface;
+    public function translateData(RequestInterface $request);
 }

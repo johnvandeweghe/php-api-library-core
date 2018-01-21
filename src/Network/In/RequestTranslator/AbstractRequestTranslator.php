@@ -19,8 +19,8 @@ abstract class AbstractRequestTranslator implements RequestTranslatorInterface
      */
     public function translateRequest(RequestInterface $request): \PHPAPILibrary\Core\Identity\RequestInterface
     {
-        $identity = $this->getIdentityProvider()->buildIdentity($request);
-        $data = $this->getBody($request);
+        $data = $this->getDataTranslator()->translateData($request);
+        $identity = $this->getIdentityProvider()->buildIdentity($request, $data);
 
         return $this->buildRequest($identity, $data, $request);
     }
@@ -31,11 +31,10 @@ abstract class AbstractRequestTranslator implements RequestTranslatorInterface
     protected abstract function getIdentityProvider(): IdentityProviderInterface;
 
     /**
-     * @param RequestInterface $request
-     * @return IdentityProviderInterface
+     * @return DataTranslatorInterface
      * @throws UnableToTranslateRequestException
      */
-    protected abstract function getBody(RequestInterface $request): IdentityProviderInterface;
+    protected abstract function getDataTranslator(): DataTranslatorInterface;
 
     /**
      * @param IdentityInterface $identity
