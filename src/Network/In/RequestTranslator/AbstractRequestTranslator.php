@@ -37,13 +37,13 @@ abstract class AbstractRequestTranslator implements RequestTranslatorInterface
     protected abstract function getDataTranslator(): DataTranslatorInterface;
 
     /**
-     * @param IdentityInterface $identity
+     * @param null|IdentityInterface $identity
      * @param array|object|null $data
      * @param RequestInterface $request
      * @return \PHPAPILibrary\Core\Identity\RequestInterface
      * @throws UnableToTranslateRequestException
      */
     protected abstract function buildRequest(
-        IdentityInterface $identity, $data, RequestInterface $request
+        ?IdentityInterface $identity, $data, RequestInterface $request
     ): \PHPAPILibrary\Core\Identity\RequestInterface;
 }

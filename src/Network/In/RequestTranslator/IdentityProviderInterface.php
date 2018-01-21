@@ -17,5 +17,5 @@ interface IdentityProviderInterface
      * @return IdentityInterface
      * @throws UnableToTranslateRequestException
      */
-    public function buildIdentity(RequestInterface $request, $parsedData): IdentityInterface;
+    public function buildIdentity(RequestInterface $request, $parsedData): ?IdentityInterface;
 }

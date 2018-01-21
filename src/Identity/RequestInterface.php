@@ -18,9 +18,9 @@ interface RequestInterface
     public function getPath(): String;
 
     /**
-     * @return IdentityInterface
+     * @return null|IdentityInterface
      */
-    public function getIdentity(): IdentityInterface;
+    public function getIdentity(): ?IdentityInterface;
 
     /**
      * @return array|object|null
