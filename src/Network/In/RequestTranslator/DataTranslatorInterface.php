@@ -5,7 +5,7 @@ use PHPAPILibrary\Core\Network\In\Exception\UnableToTranslateRequestException;
 use PHPAPILibrary\Core\Network\RequestInterface;
 
 /**
- * Interface IdentityProviderInterface
+ * Interface DataTranslatorInterface
  * @package PHPAPILibrary\Core\Network\In\RequestTranslator
  */
 interface DataTranslatorInterface
