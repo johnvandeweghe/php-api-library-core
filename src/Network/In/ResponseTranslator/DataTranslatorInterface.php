@@ -1,8 +1,8 @@
 <?php
 namespace PHPAPILibrary\Core\Network\In\ResponseTranslator;
 
-use PHPAPILibrary\Core\Network\In\Exception\UnableToTranslateRequestException;
 use PHPAPILibrary\Core\Identity\ResponseInterface;
+use PHPAPILibrary\Core\Network\In\Exception\UnableToTranslateResponseException;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -14,7 +14,7 @@ interface DataTranslatorInterface
     /**
      * @param ResponseInterface $response
      * @return StreamInterface
-     * @throws UnableToTranslateRequestException
+     * @throws UnableToTranslateResponseException
      */
     public function translateData(ResponseInterface $response): StreamInterface;
 }
