@@ -1,4 +1,5 @@
 <?php
+namespace PHPAPILibrary\Core\Network\In\RequestTranslator;
 
 use PHPAPILibrary\Core\Data\DataInterface;
 use PHPAPILibrary\Core\Network\In\Exception\UnableToTranslateRequestException;
