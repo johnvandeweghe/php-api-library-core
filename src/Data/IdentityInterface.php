@@ -1,9 +1,9 @@
 <?php
-namespace PHPAPILibrary\Core\Identity;
+namespace PHPAPILibrary\Core\Data;
 
 /**
  * Interface IdentityInterface
- * @package PHPAPILibrary\Core\Identity
+ * @package PHPAPILibrary\Core\Data
  */
 interface IdentityInterface
 {

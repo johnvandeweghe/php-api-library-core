@@ -1,23 +1,23 @@
 <?php
-namespace PHPAPILibrary\Core\Network\In\ResponseTranslator;
+namespace PHPAPILibrary\Core\Data\Out\ResponseTranslator;
 
-use PHPAPILibrary\Core\Network\In\Exception\UnableToTranslateResponseException;
-use PHPAPILibrary\Core\Network\In\ResponseTranslatorInterface;
-use PHPAPILibrary\Core\Network\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
+use PHPAPILibrary\Core\Data\DataInterface;
+use PHPAPILibrary\Core\Data\Out\Exception\UnableToTranslateResponseException;
+use PHPAPILibrary\Core\Data\Out\ResponseTranslatorInterface;
+use PHPAPILibrary\Core\Data\ResponseInterface;
 
 /**
  * Class AbstractRequestTranslator
- * @package PHPAPILibrary\Core\Network\In\ResponseTranslator
+ * @package PHPAPILibrary\Core\Data\Out\ResponseTranslator
  */
 abstract class AbstractResponseTranslator implements ResponseTranslatorInterface
 {
     /**
-     * @param \PHPAPILibrary\Core\Data\ResponseInterface $response
+     * @param \PHPAPILibrary\Core\Network\ResponseInterface $response
      * @return ResponseInterface
      * @throws UnableToTranslateResponseException
      */
-    public function translateResponse(\PHPAPILibrary\Core\Data\ResponseInterface $response): ResponseInterface
+    public function translateResponse(\PHPAPILibrary\Core\Network\ResponseInterface $response): ResponseInterface
     {
         $data = $this->getDataTranslator()->translateData($response);
 
@@ -31,12 +31,12 @@ abstract class AbstractResponseTranslator implements ResponseTranslatorInterface
     protected abstract function getDataTranslator(): DataTranslatorInterface;
 
     /**
-     * @param StreamInterface $data
-     * @param \PHPAPILibrary\Core\Data\ResponseInterface $response
+     * @param DataInterface $data
+     * @param \PHPAPILibrary\Core\Network\ResponseInterface $response
      * @return ResponseInterface
      * @throws UnableToTranslateResponseException
      */
     protected abstract function buildResponse(
-        StreamInterface $data, \PHPAPILibrary\Core\Data\ResponseInterface $response
+        DataInterface $data, \PHPAPILibrary\Core\Network\ResponseInterface $response
     ): ResponseInterface;
 }

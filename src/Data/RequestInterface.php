@@ -1,8 +1,6 @@
 <?php
 namespace PHPAPILibrary\Core\Data;
 
-use PHPAPILibrary\Core\Identity\IdentityInterface;
-
 /**
  * Interface RequestInterface
  * @package PHPAPILibrary\Core\Data
@@ -20,9 +18,9 @@ interface RequestInterface
     public function getPath(): String;
 
     /**
-     * @return IdentityInterface
+     * @return IdentityInterface|null
      */
-    public function getIdentity(): IdentityInterface;
+    public function getIdentity(): ?IdentityInterface;
 
     /**
      * @return DataInterface

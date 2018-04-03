@@ -12,8 +12,8 @@ interface RequestTranslatorInterface
 {
     /**
      * @param RequestInterface $request
-     * @return \PHPAPILibrary\Core\Identity\RequestInterface
+     * @return \PHPAPILibrary\Core\Network\RequestInterface
      * @throws UnableToTranslateRequestException
      */
-    public function translateRequest(RequestInterface $request): \PHPAPILibrary\Core\Identity\RequestInterface;
+    public function translateRequest(RequestInterface $request): \PHPAPILibrary\Core\Network\RequestInterface;
 }

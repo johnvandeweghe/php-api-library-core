@@ -28,16 +28,16 @@ abstract class AbstractLayerController extends \PHPAPILibrary\Core\Data\Abstract
             $identityRequest = $this->getRequestTranslator()->translateRequest($request);
 
             $identityResponse = $this->getNextLayer()->handleRequest($identityRequest);
-        } catch(\PHPAPILibrary\Core\Identity\Exception\AccessDeniedException $exception) {
+        } catch(\PHPAPILibrary\Core\Network\Exception\AccessDeniedException $exception) {
             $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new AccessDeniedException($identityResponse);
-        } catch(\PHPAPILibrary\Core\Identity\Exception\RateLimitExceededException $exception) {
+        } catch(\PHPAPILibrary\Core\Network\Exception\RateLimitExceededException $exception) {
             $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new RateLimitExceededException($identityResponse);
-        } catch(\PHPAPILibrary\Core\Identity\Exception\RequestException $exception) {
+        } catch(\PHPAPILibrary\Core\Network\Exception\RequestException $exception) {
             $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new RequestException($identityResponse);
-        } catch(\PHPAPILibrary\Core\Identity\Exception\UnableToProcessRequestException $exception) {
+        } catch(\PHPAPILibrary\Core\Network\Exception\UnableToProcessRequestException $exception) {
             $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new UnableToProcessRequestException($identityResponse);
         }
@@ -46,9 +46,9 @@ abstract class AbstractLayerController extends \PHPAPILibrary\Core\Data\Abstract
     }
 
     /**
-     * @return \PHPAPILibrary\Core\Identity\LayerControllerInterface
+     * @return \PHPAPILibrary\Core\Network\LayerControllerInterface
      */
-    abstract protected function getNextLayer(): \PHPAPILibrary\Core\Identity\LayerControllerInterface;
+    abstract protected function getNextLayer(): \PHPAPILibrary\Core\Network\LayerControllerInterface;
 
     /**
      * @return RequestTranslatorInterface

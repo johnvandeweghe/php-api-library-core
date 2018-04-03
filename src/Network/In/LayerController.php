@@ -30,7 +30,7 @@ class LayerController extends AbstractLayerController
      */
     private $logger;
     /**
-     * @var \PHPAPILibrary\Core\Identity\LayerControllerInterface
+     * @var \PHPAPILibrary\Core\Data\LayerControllerInterface
      */
     private $identityLayerController;
     /**
@@ -48,7 +48,7 @@ class LayerController extends AbstractLayerController
      * @param RateControllerInterface $rateController
      * @param CacheControllerInterface $cacheController
      * @param LoggerInterface $logger
-     * @param \PHPAPILibrary\Core\Identity\LayerControllerInterface $identityLayerController
+     * @param \PHPAPILibrary\Core\Data\LayerControllerInterface $identityLayerController
      * @param RequestTranslatorInterface $requestTranslator
      * @param ResponseTranslatorInterface $responseTranslator
      */
@@ -57,7 +57,7 @@ class LayerController extends AbstractLayerController
         RateControllerInterface $rateController,
         CacheControllerInterface $cacheController,
         LoggerInterface $logger,
-        \PHPAPILibrary\Core\Identity\LayerControllerInterface $identityLayerController,
+        \PHPAPILibrary\Core\Data\LayerControllerInterface $identityLayerController,
         RequestTranslatorInterface $requestTranslator,
         ResponseTranslatorInterface $responseTranslator
     )
@@ -104,9 +104,9 @@ class LayerController extends AbstractLayerController
     }
 
     /**
-     * @return \PHPAPILibrary\Core\Identity\LayerControllerInterface
+     * @return \PHPAPILibrary\Core\Data\LayerControllerInterface
      */
-    protected function getNextLayer(): \PHPAPILibrary\Core\Identity\LayerControllerInterface
+    protected function getNextLayer(): \PHPAPILibrary\Core\Data\LayerControllerInterface
     {
         return $this->identityLayerController;
     }

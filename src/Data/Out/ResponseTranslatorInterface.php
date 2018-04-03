@@ -11,9 +11,9 @@ use PHPAPILibrary\Core\Data\ResponseInterface;
 interface ResponseTranslatorInterface
 {
     /**
-     * @param \PHPAPILibrary\Core\Identity\ResponseInterface $response
+     * @param \PHPAPILibrary\Core\Network\ResponseInterface $response
      * @return ResponseInterface
      * @throws UnableToTranslateResponseException
      */
-    public function translateResponse(\PHPAPILibrary\Core\Identity\ResponseInterface $response): ResponseInterface;
+    public function translateResponse(\PHPAPILibrary\Core\Network\ResponseInterface $response): ResponseInterface;
 }

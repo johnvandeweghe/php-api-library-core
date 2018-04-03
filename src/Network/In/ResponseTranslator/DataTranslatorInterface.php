@@ -1,7 +1,7 @@
 <?php
 namespace PHPAPILibrary\Core\Network\In\ResponseTranslator;
 
-use PHPAPILibrary\Core\Identity\ResponseInterface;
+use PHPAPILibrary\Core\Data\ResponseInterface;
 use PHPAPILibrary\Core\Network\In\Exception\UnableToTranslateResponseException;
 use Psr\Http\Message\StreamInterface;
 
