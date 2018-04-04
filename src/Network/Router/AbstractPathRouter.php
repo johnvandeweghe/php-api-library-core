@@ -13,10 +13,10 @@ abstract class AbstractPathRouter implements RouterInterface
 
     /**
      * @param RequestInterface $request
-     * @return LayerControllerInterface
+     * @return LayerControllerInterface|null
      * @throws UnableToRouteRequestException
      */
-    public function route(RequestInterface $request): LayerControllerInterface
+    public function route(RequestInterface $request): ?LayerControllerInterface
     {
         $route = $request->getPath();
 
@@ -25,8 +25,8 @@ abstract class AbstractPathRouter implements RouterInterface
 
     /**
      * @param string $path
-     * @return LayerControllerInterface
+     * @return LayerControllerInterface|null
      * @throws UnableToRouteRequestException
      */
-    protected abstract function getLayerControllerFromPath(string $path): LayerControllerInterface;
+    protected abstract function getLayerControllerFromPath(string $path): ?LayerControllerInterface;
 }

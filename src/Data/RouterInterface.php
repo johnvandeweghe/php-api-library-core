@@ -11,8 +11,8 @@ interface RouterInterface
 {
     /**
      * @param RequestInterface $request
-     * @return LayerControllerInterface
+     * @return LayerControllerInterface|null
      * @throws UnableToRouteRequestException
      */
-    public function route(RequestInterface $request): LayerControllerInterface;
+    public function route(RequestInterface $request): ?LayerControllerInterface;
 }

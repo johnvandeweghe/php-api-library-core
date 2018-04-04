@@ -6,6 +6,7 @@ use PHPAPILibrary\Core\Network\Exception\RateLimitExceededException;
 use PHPAPILibrary\Core\Network\Exception\RequestException;
 use PHPAPILibrary\Core\Network\Exception\UnableToProcessRequestException;
 use PHPAPILibrary\Core\Network\Exception\UnableToRouteRequestException;
+use PHPAPILibrary\Core\Network\Response\Response;
 
 /**
  * Class AbstractRoutingLayerController
@@ -26,7 +27,21 @@ abstract class AbstractRoutingLayerController extends AbstractLayerController
     {
         $routedController = $this->getRouter()->route($request);
 
+        if(!$routedController) {
+            return $this->handleControllerNotFound($request);
+        }
+
         return $routedController->handleRequest($request);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     * @throws UnableToRouteRequestException
+     */
+    protected function handleControllerNotFound(RequestInterface $request): ResponseInterface
+    {
+        throw new UnableToRouteRequestException(Response::getNullResponse());
     }
 
     /**

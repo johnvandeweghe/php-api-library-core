@@ -2,12 +2,11 @@
 namespace PHPAPILibrary\Core\Data;
 
 use PHPAPILibrary\Core\Data\Exception\UnableToRouteRequestException;
-use PHPAPILibrary\Core\Data\Response\Response;
 
 /**
  * A router that routes on pre-registered paths.
  * Class RegisteredPathRouter
- * @package PHPAPILibrary\Core\Network
+ * @package PHPAPILibrary\Core\Data
  */
 class RegisteredPathRouter extends AbstractPathRouter
 {
@@ -49,20 +48,15 @@ class RegisteredPathRouter extends AbstractPathRouter
 
     /**
      * @param string $path
-     * @return LayerControllerInterface
+     * @return LayerControllerInterface|null
      * @throws UnableToRouteRequestException
      */
-    protected function getLayerControllerFromPath(string $path): LayerControllerInterface
+    protected function getLayerControllerFromPath(string $path): ?LayerControllerInterface
     {
-        $originalPath = $path;
         if(!$this->caseSensitive) {
             $path = strtolower($path);
         }
 
-        if(!isset($this->routes[$path])) {
-            throw new UnableToRouteRequestException(Response::getNullResponse(), "Path not found: " . $originalPath);
-        }
-
-        return $this->routes[$path];
+        return $this->routes[$path] ?? null;
     }
 }
