@@ -25,9 +25,9 @@ abstract class AbstractLayerController extends \PHPAPILibrary\Core\Network\Abstr
     protected function getResponse(RequestInterface $request): ResponseInterface
     {
         try {
-            $identityRequest = $this->getRequestTranslator()->translateRequest($request);
+            $dataRequest = $this->getRequestTranslator()->translateRequest($request);
 
-            $identityResponse = $this->getNextLayer()->handleRequest($identityRequest);
+            $dataResponse = $this->getNextLayer()->handleRequest($dataRequest);
         } catch (\PHPAPILibrary\Core\Data\Exception\AccessDeniedException $exception) {
             $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new AccessDeniedException($networkResponse);
@@ -42,7 +42,7 @@ abstract class AbstractLayerController extends \PHPAPILibrary\Core\Network\Abstr
             throw new UnableToProcessRequestException($networkResponse);
         }
 
-        return $this->getResponseTranslator()->translateResponse($identityResponse);
+        return $this->getResponseTranslator()->translateResponse($dataResponse);
     }
 
     /**

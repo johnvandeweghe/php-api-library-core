@@ -5,6 +5,7 @@ use PHPAPILibrary\Core\Network\AccessControllerInterface;
 use PHPAPILibrary\Core\Network\CacheControllerInterface;
 use PHPAPILibrary\Core\Network\LoggerInterface;
 use PHPAPILibrary\Core\Network\RateControllerInterface;
+use PHPAPILibrary\Core\Network\RequestInterface;
 
 /**
  * Default implementation of an AbstractLayerController.
