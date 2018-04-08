@@ -24,7 +24,7 @@ class RegisteredPathRouter extends AbstractPathRouter
      * @param LayerControllerInterface[] $routes Path keyed array of layer controllers
      * @param bool $caseSensitive
      */
-    public function __construct($routes = [], bool $caseSensitive = false)
+    public function __construct(array $routes = [], bool $caseSensitive = false)
     {
         $this->routes = $routes;
         $this->caseSensitive = $caseSensitive;

@@ -19,16 +19,17 @@ abstract class AbstractResponseTranslator implements ResponseTranslatorInterface
      */
     public function translateResponse(\PHPAPILibrary\Core\Data\ResponseInterface $response): ResponseInterface
     {
-        $data = $this->getDataTranslator()->translateData($response);
+        $data = $this->getDataTranslator($response)->translateData($response);
 
         return $this->buildResponse($data, $response);
     }
 
     /**
+     * @param \PHPAPILibrary\Core\Data\ResponseInterface $response
      * @return DataTranslatorInterface
      * @throws UnableToTranslateResponseException
      */
-    protected abstract function getDataTranslator(): DataTranslatorInterface;
+    protected abstract function getDataTranslator(\PHPAPILibrary\Core\Data\ResponseInterface $response): DataTranslatorInterface;
 
     /**
      * @param StreamInterface $data

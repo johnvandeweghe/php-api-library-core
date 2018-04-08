@@ -19,17 +19,18 @@ abstract class AbstractRequestTranslator implements RequestTranslatorInterface
      */
     public function translateRequest(RequestInterface $request): \PHPAPILibrary\Core\Network\RequestInterface
     {
-        $data = $this->getDataTranslator()->translateData($request);
+        $data = $this->getDataTranslator($request)->translateData($request);
 
         return $this->buildRequest($data, $request);
     }
 
 
     /**
+     * @param RequestInterface $request
      * @return DataTranslatorInterface
      * @throws UnableToTranslateRequestException
      */
-    protected abstract function getDataTranslator(): DataTranslatorInterface;
+    protected abstract function getDataTranslator(RequestInterface $request): DataTranslatorInterface;
 
     /**
      * @param StreamInterface $data
