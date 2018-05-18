@@ -21,12 +21,4 @@ interface LayerControllerInterface
      * @throws UnableToProcessRequestException
      */
     public function handleRequest(RequestInterface $request): ResponseInterface;
-
-    /**
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     * @throws RequestException
-     * @throws UnableToProcessRequestException
-     */
-    public function directHandleRequest(RequestInterface $request): ResponseInterface;
 }
