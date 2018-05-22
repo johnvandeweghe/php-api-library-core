@@ -7,17 +7,18 @@ use PHPAPILibrary\Core\Data\LoggerInterface;
 use PHPAPILibrary\Core\Data\RateControllerInterface;
 use PHPAPILibrary\Core\Data\RequestInterface;
 use PHPAPILibrary\Core\Data\ResponseInterface;
-use PHPAPILibrary\Core\Identity\LayerControllerInterface;
-use PHPAPILibrary\Core\Identity\RequestInterface as IdentityRequestInterface;
-use PHPAPILibrary\Core\Identity\ResponseInterface as IdentityResponseInterface;
+use PHPAPILibrary\Core\Network\LayerControllerInterface;
+use PHPAPILibrary\Core\Network\RequestInterface as NetworkRequestInterface;
+use PHPAPILibrary\Core\Network\ResponseInterface as NetworkResponseInterface;
+use PHPUnit\Framework\TestCase;
 
-class AbstractLayerControllerTest extends \PHPAPILibrary\Core\Data\AbstractLayerControllerTest
+class AbstractLayerControllerTest extends TestCase
 {
     public function testTranslatorsAreCalledWithRequestAndThatTheProxiedResponseIsTranslatedAndReturned() {
         $mockedRequest = $this->getMockBuilder(RequestInterface::class)->getMock();
         $mockedResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
-        $mockedTranslatedRequest = $this->getMockBuilder(IdentityRequestInterface::class)->getMock();
-        $mockedTranslatedResponse = $this->getMockBuilder(IdentityResponseInterface::class)->getMock();
+        $mockedTranslatedRequest = $this->getMockBuilder(NetworkRequestInterface::class)->getMock();
+        $mockedTranslatedResponse = $this->getMockBuilder(NetworkResponseInterface::class)->getMock();
         $mockedNextLayer = $this->getMockBuilder(LayerControllerInterface::class)->getMock();
         $mockedRequestTranslator = $this->getMockBuilder(RequestTranslatorInterface::class)->getMock();
         $mockedResponseTranslator = $this->getMockBuilder(ResponseTranslatorInterface::class)->getMock();

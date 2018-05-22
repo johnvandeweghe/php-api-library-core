@@ -25,24 +25,24 @@ abstract class AbstractLayerController extends \PHPAPILibrary\Core\Data\Abstract
     protected function getResponse(RequestInterface $request): ResponseInterface
     {
         try {
-            $identityRequest = $this->getRequestTranslator()->translateRequest($request);
+            $networkRequest = $this->getRequestTranslator()->translateRequest($request);
 
-            $identityResponse = $this->getNextLayer()->handleRequest($identityRequest);
+            $networkResponse = $this->getNextLayer()->handleRequest($networkRequest);
         } catch(\PHPAPILibrary\Core\Network\Exception\AccessDeniedException $exception) {
-            $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
-            throw new AccessDeniedException($identityResponse);
+            $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
+            throw new AccessDeniedException($networkResponse);
         } catch(\PHPAPILibrary\Core\Network\Exception\RateLimitExceededException $exception) {
-            $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
-            throw new RateLimitExceededException($identityResponse);
+            $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
+            throw new RateLimitExceededException($networkResponse);
         } catch(\PHPAPILibrary\Core\Network\Exception\RequestException $exception) {
-            $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
-            throw new RequestException($identityResponse);
+            $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
+            throw new RequestException($networkResponse);
         } catch(\PHPAPILibrary\Core\Network\Exception\UnableToProcessRequestException $exception) {
-            $identityResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
-            throw new UnableToProcessRequestException($identityResponse);
+            $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
+            throw new UnableToProcessRequestException($networkResponse);
         }
 
-        return $this->getResponseTranslator()->translateResponse($identityResponse);
+        return $this->getResponseTranslator()->translateResponse($networkResponse);
     }
 
     /**
