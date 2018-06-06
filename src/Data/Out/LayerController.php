@@ -32,7 +32,7 @@ class LayerController extends AbstractLayerController
     /**
      * @var \PHPAPILibrary\Core\Network\LayerControllerInterface
      */
-    private $identityLayerController;
+    private $nextLayerController;
     /**
      * @var RequestTranslatorInterface
      */
@@ -48,7 +48,7 @@ class LayerController extends AbstractLayerController
      * @param RateControllerInterface $rateController
      * @param CacheControllerInterface $cacheController
      * @param LoggerInterface $logger
-     * @param \PHPAPILibrary\Core\Network\LayerControllerInterface $identityLayerController
+     * @param \PHPAPILibrary\Core\Network\LayerControllerInterface $nextLayerController
      * @param RequestTranslatorInterface $requestTranslator
      * @param ResponseTranslatorInterface $responseTranslator
      */
@@ -57,7 +57,7 @@ class LayerController extends AbstractLayerController
         RateControllerInterface $rateController,
         CacheControllerInterface $cacheController,
         LoggerInterface $logger,
-        \PHPAPILibrary\Core\Network\LayerControllerInterface $identityLayerController,
+        \PHPAPILibrary\Core\Network\LayerControllerInterface $nextLayerController,
         RequestTranslatorInterface $requestTranslator,
         ResponseTranslatorInterface $responseTranslator
     )
@@ -66,7 +66,7 @@ class LayerController extends AbstractLayerController
         $this->rateController = $rateController;
         $this->cacheController = $cacheController;
         $this->logger = $logger;
-        $this->identityLayerController = $identityLayerController;
+        $this->nextLayerController = $nextLayerController;
         $this->requestTranslator = $requestTranslator;
         $this->responseTranslator = $responseTranslator;
     }
@@ -108,7 +108,7 @@ class LayerController extends AbstractLayerController
      */
     protected function getNextLayer(): \PHPAPILibrary\Core\Network\LayerControllerInterface
     {
-        return $this->identityLayerController;
+        return $this->nextLayerController;
     }
 
     /**

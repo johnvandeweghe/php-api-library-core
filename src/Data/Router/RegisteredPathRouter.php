@@ -1,7 +1,8 @@
 <?php
-namespace PHPAPILibrary\Core\Data;
+namespace PHPAPILibrary\Core\Data\Router;
 
 use PHPAPILibrary\Core\Data\Exception\UnableToRouteRequestException;
+use PHPAPILibrary\Core\Data\LayerControllerInterface;
 
 /**
  * A router that routes on pre-registered paths.

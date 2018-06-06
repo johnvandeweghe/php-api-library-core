@@ -1,7 +1,10 @@
 <?php
-namespace PHPAPILibrary\Core\Data;
+namespace PHPAPILibrary\Core\Data\Router;
 
 use PHPAPILibrary\Core\Data\Exception\UnableToRouteRequestException;
+use PHPAPILibrary\Core\Data\LayerControllerInterface;
+use PHPAPILibrary\Core\Data\RequestInterface;
+use PHPAPILibrary\Core\Data\RouterInterface;
 
 /**
  * A router that routes based on a request's path.
