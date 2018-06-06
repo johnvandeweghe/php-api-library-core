@@ -10,7 +10,7 @@ use Psr\Http\Message\StreamInterface;
  * Class AbstractRequestTranslator
  * @package PHPAPILibrary\Core\Data\Out\RequestTranslator
  */
-abstract class AbstractResponseTranslator implements RequestTranslatorInterface
+abstract class AbstractRequestTranslator implements RequestTranslatorInterface
 {
     /**
      * @param RequestInterface $request

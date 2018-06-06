@@ -13,7 +13,7 @@ class AbstractRequestTranslatorTest extends TestCase
         $dataRequestMock = $this->getMockBuilder(DataRequestInterface::class)->getMock();
         $networkRequestMock = $this->getMockBuilder(NetworkRequestInterface::class)->getMock();
         $mockedDataTranslator = $this->getMockBuilder(DataTranslatorInterface::class)->getMock();
-        $requestTranslator = $this->getMockForAbstractClass(AbstractResponseTranslator::class);
+        $requestTranslator = $this->getMockForAbstractClass(AbstractRequestTranslator::class);
 
         $requestTranslator->expects($this->once())->method('getDataTranslator')->with($dataRequestMock)->willReturn($mockedDataTranslator);
         $requestTranslator->expects($this->once())->method('buildRequest')->with($dataMock, $dataRequestMock)->willReturn($networkRequestMock);

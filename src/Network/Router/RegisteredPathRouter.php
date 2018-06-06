@@ -27,7 +27,16 @@ class RegisteredPathRouter extends AbstractPathRouter
      */
     public function __construct(array $routes = [], bool $caseSensitive = false)
     {
-        $this->routes = $routes;
+        if(!$caseSensitive) {
+            $lowerRoutes = [];
+            foreach($routes as $path => $route) {
+                $lowerRoutes[strtolower($path)] = $route;
+            }
+            $this->routes = $lowerRoutes;
+        } else {
+            $this->routes = $routes;
+        }
+
         $this->caseSensitive = $caseSensitive;
     }
 
