@@ -6,26 +6,19 @@ use PHPAPILibrary\Core\CacheControlInterface;
 class NoCacheControl implements CacheControlInterface
 {
     /**
-     * @return bool
-     */
-    public function isExpired(): bool
-    {
-        return true;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getAbsoluteExpiration(): \DateTime
-    {
-        return new \DateTime("@0", new \DateTimeZone("UTC"));
-    }
-
-    /**
      * @return \DateInterval
      */
     public function getRelativeExpiration(): \DateInterval
     {
         return \DateInterval::createFromDateString('-99 days');
+    }
+
+    /**
+     * Whether to consider the cache private (for a specific user) or public (so a shared cache can use it).
+     * @return bool
+     */
+    public function isPrivate(): bool
+    {
+        return true;
     }
 }
