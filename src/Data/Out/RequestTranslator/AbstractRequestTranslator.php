@@ -39,6 +39,6 @@ abstract class AbstractRequestTranslator implements RequestTranslatorInterface
      * @throws UnableToTranslateRequestException
      */
     protected abstract function buildRequest(
-       StreamInterface $data, RequestInterface $request
+        StreamInterface $data, RequestInterface $request
     ): \PHPAPILibrary\Core\Network\RequestInterface;
 }

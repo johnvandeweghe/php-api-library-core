@@ -27,9 +27,9 @@ class RegisteredPathRouter extends AbstractPathRouter
      */
     public function __construct(array $routes = [], bool $caseSensitive = false)
     {
-        if(!$caseSensitive) {
+        if (!$caseSensitive) {
             $lowerRoutes = [];
-            foreach($routes as $path => $route) {
+            foreach ($routes as $path => $route) {
                 $lowerRoutes[strtolower($path)] = $route;
             }
             $this->routes = $lowerRoutes;
@@ -47,11 +47,11 @@ class RegisteredPathRouter extends AbstractPathRouter
      */
     public function addRoute(string $route, LayerControllerInterface $layerController, bool $replace = true): void
     {
-        if(!$this->caseSensitive) {
+        if (!$this->caseSensitive) {
             $route = strtolower($route);
         }
 
-        if(!isset($this->routes[$route]) || $replace) {
+        if (!isset($this->routes[$route]) || $replace) {
             $this->routes[$route] = $layerController;
         }
     }
@@ -63,7 +63,7 @@ class RegisteredPathRouter extends AbstractPathRouter
      */
     protected function getLayerControllerFromPath(string $path): ?LayerControllerInterface
     {
-        if(!$this->caseSensitive) {
+        if (!$this->caseSensitive) {
             $path = strtolower($path);
         }
 

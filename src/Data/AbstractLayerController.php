@@ -54,11 +54,11 @@ abstract class AbstractLayerController implements LayerControllerInterface
      */
     protected function getResponseFromSubLayers(RequestInterface $request): ?ResponseInterface
     {
-        if($this->getRateController()->isExceedingLimit($request)) {
+        if ($this->getRateController()->isExceedingLimit($request)) {
             return $this->handleRateLimitExceeded($request);
         }
 
-        if(!$this->getAccessController()->canAccess($request)) {
+        if (!$this->getAccessController()->canAccess($request)) {
             return $this->handleDeniedAccess($request);
         }
 

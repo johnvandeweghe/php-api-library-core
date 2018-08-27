@@ -28,16 +28,16 @@ abstract class AbstractLayerController extends \PHPAPILibrary\Core\Data\Abstract
             $networkRequest = $this->getRequestTranslator()->translateRequest($request);
 
             $networkResponse = $this->getNextLayer()->handleRequest($networkRequest);
-        } catch(\PHPAPILibrary\Core\Network\Exception\AccessDeniedException $exception) {
+        } catch (\PHPAPILibrary\Core\Network\Exception\AccessDeniedException $exception) {
             $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new AccessDeniedException($networkResponse);
-        } catch(\PHPAPILibrary\Core\Network\Exception\RateLimitExceededException $exception) {
+        } catch (\PHPAPILibrary\Core\Network\Exception\RateLimitExceededException $exception) {
             $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new RateLimitExceededException($networkResponse);
-        } catch(\PHPAPILibrary\Core\Network\Exception\RequestException $exception) {
+        } catch (\PHPAPILibrary\Core\Network\Exception\RequestException $exception) {
             $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new RequestException($networkResponse);
-        } catch(\PHPAPILibrary\Core\Network\Exception\UnableToProcessRequestException $exception) {
+        } catch (\PHPAPILibrary\Core\Network\Exception\UnableToProcessRequestException $exception) {
             $networkResponse = $this->getResponseTranslator()->translateResponse($exception->getResponse());
             throw new UnableToProcessRequestException($networkResponse);
         }
