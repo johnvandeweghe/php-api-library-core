@@ -27,7 +27,7 @@ abstract class AbstractRoutingLayerController extends AbstractLayerController
     {
         $routedController = $this->getRouter()->route($request);
 
-        if(!$routedController) {
+        if (!$routedController) {
             return $this->handleControllerNotFound($request);
         }
 
